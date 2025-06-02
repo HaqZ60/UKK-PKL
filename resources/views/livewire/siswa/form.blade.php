@@ -1,7 +1,13 @@
 <div class="p-6 max-w-3xl mx-auto bg-gray-400 shadow-lg rounded-lg">
     <h2 class="text-2xl font-semibold mb-6 text-center">{{ $id ? 'Edit Siswa' : 'Tambah Siswa' }}</h2>
 
-    <form wire:submit.prevent="save" class="space-y-6">
+    @if (session()->has('error'))
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    <form wire:submit.prevent="save" enctype="multipart/form-data" class="space-y-6">
         <!-- Nama -->
         <div>
             <label class="block text-sm font-medium text-gray-700">Nama</label>
@@ -50,13 +56,33 @@
             @error('email') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
+        <!-- Foto -->
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Foto</label>
+            <input type="file" wire:model="foto" class="w-full border border-gray-300 rounded-md px-4 py-2 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            @error('foto') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+
+            @if ($existingFoto)
+                <div class="mt-2">
+                    <p class="text-sm text-gray-600">Current Photo:</p>
+                    <img src="{{ asset('storage/' . $existingFoto) }}" alt="Current photo" class="mt-1 h-20 w-20 object-cover rounded">
+                </div>
+            @endif
+        </div>
+
         <!-- Status PKL -->
         <div>
             <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 my-2">Status PKL</label>
-            <flux:radio.group wire:model="status_pkl">
-                <flux:radio value="0" label="Belum diterima PKL" />
-                <flux:radio value="1" label="Sudah diterima PKL" />
-            </flux:radio.group>
+            <div class="mt-2">
+                <label class="inline-flex items-center">
+                    <input type="radio" wire:model="status_pkl" value="0" class="form-radio text-blue-600" />
+                    <span class="ml-2">Belum diterima PKL</span>
+                </label>
+                <label class="inline-flex items-center ml-6">
+                    <input type="radio" wire:model="status_pkl" value="1" class="form-radio text-blue-600" />
+                    <span class="ml-2">Sudah diterima PKL</span>
+                </label>
+            </div>
             @error('status_pkl') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 

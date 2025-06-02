@@ -25,45 +25,60 @@ class Form extends Component
             $this->email = $siswa->email;
             $this->existingFoto = $siswa->foto;
             $this->status_pkl = $siswa->status_pkl;
+        } else {
+            // Set default values for new records
+            $this->status_pkl = 0; // Default to "Belum diterima PKL"
         }
     }
 
     public function save()
     {
-        $this->validate([
+        $validationRules = [
             'nama' => 'required|string',
             'nis' => 'required|string',
             'gender' => 'required|string',
             'alamat' => 'required|string',
             'kontak' => 'required|string',
             'email' => 'required|email',
-            'foto' => $this->id ? 'nullable|image|max:1024' : 'required|image|max:1024',
-            'status_pkl' => 'required|boolean',
-        ]);
-        
+            'status_pkl' => 'required',
+        ];
 
-        // $fotoPath = null;
-        // if ($this->foto) {
-        //     $fotoPath = $this->foto->store('foto_siswa', 'public');
-        // } elseif ($this->existingFoto ?? false) {
-        //     $fotoPath = $this->existingFoto;
-        // } 
+        // Only require the photo for new records
+        if ($this->id) {
+            $validationRules['foto'] = 'nullable|image|max:1024';
+        } else {
+            $validationRules['foto'] = 'required|image|max:1024';
+        }
 
-        Siswa::updateOrCreate(
-            ['id' => $this->id],
-            [
-                'nama' => $this->nama,
-                'nis' => $this->nis,
-                'gender' => $this->gender,
-                'alamat' => $this->alamat,
-                'kontak' => $this->kontak,
-                'email' => $this->email,
-                'status_pkl' => $this->status_pkl ? 1 : 0,
-            ]
-        );
+        $this->validate($validationRules);
 
-        session()->flash('message', 'Data siswa berhasil disimpan.');
-        return redirect()->route('siswa');
+        $fotoPath = null;
+        if ($this->foto) {
+            $fotoPath = $this->foto->store('foto_siswa', 'public');
+        } elseif ($this->existingFoto ?? false) {
+            $fotoPath = $this->existingFoto;
+        }
+
+        try {
+            Siswa::updateOrCreate(
+                ['id' => $this->id],
+                [
+                    'nama' => $this->nama,
+                    'nis' => $this->nis,
+                    'gender' => $this->gender,
+                    'alamat' => $this->alamat,
+                    'kontak' => $this->kontak,
+                    'email' => $this->email,
+                    'foto' => $fotoPath,
+                    'status_pkl' => $this->status_pkl,
+                ]
+            );
+
+            session()->flash('message', 'Data siswa berhasil disimpan.');
+            return redirect()->route('siswa');
+        } catch (\Exception $e) {
+            session()->flash('error', 'Error: ' . $e->getMessage());
+        }
     }
 
     public function render()
