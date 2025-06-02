@@ -16,9 +16,7 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-Route::view('siswa', 'siswa')
-    ->middleware(['auth', 'verified'])
-    ->name('siswa');
+Route::get('/siswa', SiswaIndex::class)->name('siswa');
 
 
 Route::get('/industri', function () {
@@ -31,7 +29,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/profile', Profile::class)->name('settings.profile');
     Route::get('settings/password', Password::class)->name('settings.password');
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
-    
+
     Route::get('/siswa/show/{id}', SiswaView::class)->name('siswa.show');
     Route::get('/siswa/create', Form::class)->name('siswa.create');
     Route::get('/siswa/edit/{id}', Form::class)->name('siswa.edit');
