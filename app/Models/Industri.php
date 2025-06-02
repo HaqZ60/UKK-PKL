@@ -11,7 +11,7 @@ class Industri extends Model
     use HasFactory;
     protected $table = 'industri';
 
-    protected $fillable = ['nama', 'bidang_usaha', 'alamat', 'kontak', 'email', 'guru_pembimbing', 'website', 'foto'];
+    protected $fillable = ['nama', 'bidang_usaha', 'alamat', 'kontak', 'email', 'website', 'foto'];
 
     public function guru()
     {
