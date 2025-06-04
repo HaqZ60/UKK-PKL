@@ -1,29 +1,34 @@
 <div class="flex flex-col gap-6">
-    <x-auth-header :title="__('Create an account')" :description="__('Enter your details below to create your account')" />
+    <x-auth-header :title="__('Daftar Akun Siswa')" :description="__('Masukkan email siswa yang terdaftar untuk membuat akun')" />
 
     <!-- Session Status -->
     <x-auth-session-status class="text-center" :status="session('status')" />
 
-    <form wire:submit="register" class="flex flex-col gap-6">
-        <!-- Name -->
-        <flux:input
-            wire:model="name"
-            :label="__('Name')"
-            type="text"
-            required
-            autofocus
-            autocomplete="name"
-            :placeholder="__('Full name')"
-        />
+    <div class="bg-blue-50 border border-blue-200 rounded-md p-3 text-sm text-blue-800">
+        <strong>Informasi:</strong> Hanya siswa yang emailnya sudah terdaftar di sistem yang dapat membuat akun.
+    </div>
 
+    <form wire:submit="register" class="flex flex-col gap-6">
         <!-- Email Address -->
         <flux:input
-            wire:model="email"
-            :label="__('Email address')"
+            wire:model.live="email"
+            :label="__('Email Siswa')"
             type="email"
             required
             autocomplete="email"
-            placeholder="email@example.com"
+            placeholder="contoh: 20388@student.stembayo.sch.id"
+        />
+
+        <!-- Name (Auto-filled) -->
+        <flux:input
+            wire:model="name"
+            :label="__('Nama Lengkap')"
+            type="text"
+            required
+            readonly="{{ $name ? 'true' : 'false' }}"
+            autocomplete="name"
+            :placeholder="$name ? '' : 'Nama akan terisi otomatis setelah email valid'"
+            class="{{ $name ? 'bg-gray-100' : '' }}"
         />
 
         <!-- Password -->
@@ -33,28 +38,28 @@
             type="password"
             required
             autocomplete="new-password"
-            :placeholder="__('Password')"
+            :placeholder="__('Buat password')"
         />
 
         <!-- Confirm Password -->
         <flux:input
             wire:model="password_confirmation"
-            :label="__('Confirm password')"
+            :label="__('Konfirmasi Password')"
             type="password"
             required
             autocomplete="new-password"
-            :placeholder="__('Confirm password')"
+            :placeholder="__('Ulangi password')"
         />
 
         <div class="flex items-center justify-end">
             <flux:button type="submit" variant="primary" class="w-full">
-                {{ __('Create account') }}
+                {{ __('Daftar Akun') }}
             </flux:button>
         </div>
     </form>
 
     <div class="space-x-1 text-center text-sm text-zinc-600 dark:text-zinc-400">
-        {{ __('Already have an account?') }}
-        <flux:link :href="route('login')" wire:navigate>{{ __('Log in') }}</flux:link>
+        {{ __('Sudah punya akun?') }}
+        <flux:link :href="route('login')" wire:navigate>{{ __('Masuk') }}</flux:link>
     </div>
 </div>

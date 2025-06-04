@@ -12,19 +12,12 @@ return new class extends Migration
      */
     public function up(): void
     {
+        DB::unprepared("DROP FUNCTION IF EXISTS ketStatusPKL");
         
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-         DB::unprepared("
-
-
+        DB::unprepared("
             CREATE FUNCTION ketStatusPKL(status BOOLEAN) RETURNS VARCHAR(50)
             DETERMINISTIC
+            READS SQL DATA
             BEGIN
                 IF status = 0 THEN
                     RETURN 'Belum diterima PKL';
@@ -34,9 +27,14 @@ return new class extends Migration
                     RETURN 'Status tidak diketahui';
                 END IF;
             END;
-
-
         ");
+    }
 
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        DB::unprepared("DROP FUNCTION IF EXISTS ketStatusPKL");
     }
 };

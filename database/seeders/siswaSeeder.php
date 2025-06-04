@@ -5,21 +5,21 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
-use App\Models\siswa;
+use App\Models\Siswa;
 
-class siswaSeeder extends Seeder
+class SiswaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $role = Role::where('name', 'student')->first();
+        $role = Role::where('name', 'siswa')->first();
         if (!$role) {
-            $role = Role::create(['name' => 'student', 'guard_name' => 'web']);
+            $role = Role::create(['name' => 'siswa', 'guard_name' => 'web']);
         }
 
-        $siswa = siswa::insert([
+        Siswa::insert([
       [
             'nama' => 'Abu Bakar Tsabit Ghufron',
             'gender' => 'L',
@@ -67,4 +67,5 @@ class siswaSeeder extends Seeder
         ],
         ]);
     }
+    
 }

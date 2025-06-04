@@ -12,21 +12,18 @@ return new class extends Migration
      */
     public function up(): void
     {
+        DB::unprepared("DROP TRIGGER IF EXISTS update_status_pkl");
+        
         DB::unprepared("
-
-
             CREATE TRIGGER update_status_pkl
             AFTER INSERT ON pkl
             FOR EACH ROW
             BEGIN
                 UPDATE siswa
-                SET status_pkl = true
+                SET status_pkl = 1
                 WHERE id = NEW.siswa_id;
             END;
-
-
         ");
-
     }
 
     /**
@@ -34,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        DB::unprepared("DROP TRIGGER IF EXISTS update_status_pkl");
     }
 };
