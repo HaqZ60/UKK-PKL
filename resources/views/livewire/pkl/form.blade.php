@@ -10,7 +10,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
             <div class="text-sm text-blue-800">
-                <strong>Informasi PKL:</strong> Durasi PKL minimal 3 bulan (90 hari). Tanggal selesai akan otomatis terisi sebagai saran saat Anda memilih tanggal mulai, tetapi Anda dapat mengubahnya sesuai kebutuhan.
+                <strong>Informasi PKL:</strong> Durasi PKL harus tepat 3 bulan. Tanggal selesai akan otomatis terisi saat Anda memilih tanggal mulai.
             </div>
         </div>
     </div>

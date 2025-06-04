@@ -80,7 +80,7 @@ class Form extends Component
     }
 
     /**
-     * Custom validation rules with PKL minimum duration check
+     * Custom validation rules with PKL duration check
      */
     public function rules()
     {
@@ -100,15 +100,17 @@ class Form extends Component
                         // Calculate the difference in months
                         $diffInMonths = $startDate->diffInMonths($endDate);
                         
-                        // PKL duration must be at least 3 months
+                        // PKL duration must be exactly 3 months
                         if ($diffInMonths < 3) {
                             $fail('Durasi PKL minimal 3 bulan.');
+                        } elseif ($diffInMonths > 3) {
+                            $fail('Durasi PKL maksimal 3 bulan.');
                         }
                         
-                        // Additional check: ensure it's at least 3 months (minimum 90 days)
+                        // Additional check: ensure it's approximately 3 months (90-93 days)
                         $diffInDays = $startDate->diffInDays($endDate);
-                        if ($diffInDays < 90) {
-                            $fail('Durasi PKL minimal 90 hari (3 bulan).');
+                        if ($diffInDays < 85 || $diffInDays > 95) {
+                            $fail('Durasi PKL harus sekitar 3 bulan (85-95 hari).');
                         }
                     }
                 }
