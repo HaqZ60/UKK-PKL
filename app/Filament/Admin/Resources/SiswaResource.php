@@ -45,12 +45,16 @@ class SiswaResource extends Resource
                     ->removeUploadedFileButtonPosition('right')
                     ->downloadable()
                     ->openable()
-                    ->columnSpanFull()
-                    ->required(), 
+                    ->columnSpanFull(),
+                     
                 
                 TextInput::make('nama')->required()->label('Nama Siswa'),
                 
-                TextInput::make('nis')->required()->unique()->label('NIS'),
+                TextInput::make('nis')->required()->unique(
+                    table: 'siswa',           // nama tabel sesuai model
+                    column: 'nis',             // kolom yang dicek
+                    ignorable: fn ($record) => $record // abaikan ID saat edit
+                )->label('NIS'),
                 
                 Select::make('gender')
                     ->options(['L' => 'Laki-laki', 'P' => 'Perempuan'])

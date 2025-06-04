@@ -69,7 +69,6 @@ class Form extends Component
                     'alamat' => $this->alamat,
                     'kontak' => $this->kontak,
                     'email' => $this->email,
-                    'foto' => $fotoPath,
                     'status_pkl' => $this->status_pkl,
                 ]
             );
