@@ -5,16 +5,11 @@
 
     <form wire:submit.prevent="save" class="space-y-6">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Nama Siswa -->
+            <!-- Nama Siswa Otomatis -->
             <div>
                 <label class="block text-sm font-medium text-gray-700">Nama Siswa</label>
-                <select wire:model="siswa_id" class="w-full mt-1 border bg-yellow-700 border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option value="">Cari nama anda</option>
-                    @foreach($siswaList as $siswa)
-                        <option value="{{ $siswa->id }}">{{ $siswa->nama }}</option>
-                    @endforeach
-                </select>
-                @error('siswa_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                <input type="text" value="{{ Auth::user()->name }}" disabled
+                    class="w-full mt-1 bg-yellow-700 text-gray-100 border border-gray-300 rounded-md px-4 py-2" />
             </div>
 
             <!-- Industri Tujuan -->
@@ -60,7 +55,7 @@
             <a href="{{ route('pkl') }}" class="bg-gray-500 text-white px-6 py-3 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 transition">
                 Batal
             </a>
-            <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+            <button type="submit" class="bg-gray-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
                 Simpan
             </button>
         </div>

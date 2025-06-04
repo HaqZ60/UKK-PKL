@@ -42,16 +42,6 @@
                 @error('website') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
 
-            <div>
-                <label class="block text-sm font-medium text-gray-800">Opsi Guru Pembimbing</label>
-                <select wire:model="guru_pembimbing" class="w-full border border-gray-400 rounded-md px-4 py-2 mt-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option value="">Pilih Guru Pembimbing</option>
-                    @foreach($guruList as $guru)
-                        <option value="{{ $guru->id }}">{{ $guru->nama }}</option>
-                    @endforeach
-                </select>
-                @error('guru_pembimbing') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-            </div>
         </div>
 
         <div class="flex justify-between">
