@@ -12,6 +12,8 @@ return new class extends Migration {
      */
     public function up(): void
     {
+        DB::unprepared("DROP TRIGGER IF EXISTS update_email_user_from_siswa");
+        
         DB::unprepared("
             CREATE TRIGGER update_email_user_from_siswa
             AFTER UPDATE ON siswa

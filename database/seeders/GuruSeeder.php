@@ -2,19 +2,19 @@
 
 namespace Database\Seeders;
 
-use App\Models\guru;
+use App\Models\Guru;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 
-class guruSeeder extends Seeder
+class GuruSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $gurus = guru::insert([
+        Guru::insert([
             [
                 'nama' => 'Sugiarto, ST', 
                 'nip' => '197203172005011012',

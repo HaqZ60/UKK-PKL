@@ -11,7 +11,7 @@ class View extends Component
 
     public function mount($id)
     {
-        $this->pkl = pkl::findOrFail($id);
+        $this->pkl = PKL::findOrFail($id);
     }
 
     public function render()

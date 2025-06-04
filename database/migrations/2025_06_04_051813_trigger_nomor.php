@@ -9,6 +9,10 @@ return new class extends Migration
 {
     public function up(): void
     {
+        // Drop triggers if they exist
+        DB::unprepared('DROP TRIGGER IF EXISTS before_insert_siswas');
+        DB::unprepared('DROP TRIGGER IF EXISTS before_update_siswas');
+        
         // Trigger BEFORE INSERT
         DB::unprepared('
             CREATE TRIGGER before_insert_siswas

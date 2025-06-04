@@ -13,8 +13,8 @@ use App\Livewire\Guru\Form as GuruForm;
 use App\Livewire\Industri\Index as IndustriIndex;
 use App\Livewire\Industri\View as IndustriView;
 use App\Livewire\Industri\Form as IndustriForm;
-use App\Livewire\PKL\Form as PKLForm;
-use App\Livewire\PKL\View as PKLView;
+use App\Livewire\Pkl\Form as PKLForm;
+use App\Livewire\Pkl\View as PKLView;
 use App\Livewire\Pkl\Index as PKLIndex;
 
 Route::get('/', function () {
